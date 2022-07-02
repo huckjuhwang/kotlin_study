@@ -1,6 +1,11 @@
 # kotlin_study
 코틀린 기본문법을 학습하기 위한 레파지토리입니다.
 
+// ex) [목차텍스트](#링크가 걸리는 텍스트)
+
+## 목차 
+1. [var vs val](#lec01.-var-vs-val)
+
 
 ## lec01. var vs val
 
@@ -345,5 +350,101 @@ fun main(){
 - 단항연산자, 산술연산자, 산술대입연산자, 비교연산자 JAVA와 같다.
   - 단 객체끼리 비교 시점에 CompareTo가 자동으로 사용되어 비교연산자를 수행할수 있다.
 - in, !in / a..b / a[i] / a[i] = b와 같이 코틀린에서 새로 생긴 연산자도 있다.
-- 객체끼리의 연산자를 코틀린에서는 직접 정의할 수 이싿.
-- 
+- 객체끼리의 연산자를 코틀린에서는 직접 정의할 수 있다.
+
+## lec05. 조건문
+
+### Expression & Statement
+```kotlin
+
+ import java.lang.IllegalArgumentException
+ 
+ fun validateScoreIsNotNegative(score: Int) {
+    if(score < 0){
+        throw IllegalArgumentException("${score}는 0보다 작을수 없습니다.")
+    }
+} 
+
+fun getPassOrFail(score: int): String{
+  if (score >= 50) {
+      return "P"
+  }else {
+      return "F"
+  }
+}
+```
+- 동일한점도 있지만, 다른점도 존재한다.
+- JAVA에서 if-else는 `Statement`이지만, Kotlin에서는 `Expression`이다.
+
+  * `statement` : 프로그램의 문장, 하나의 값으로 도출되지 않는다.
+  * `Expresstion`: 하나의 값으로 도출되는 문장
+
+```java
+String grade = if(score >= 50){     // 오류 문장!!
+    "P";
+}else{
+    "F"
+}
+```
+- Java에서는 하나의 값으로 취급하지 않기 때문에 오류가 발생한다.
+- 때문에, Java에서는 3항 연산자를 사용하여 해결한다.
+```kotlin
+fun getPassOrFail(score: int): String{
+  return if (score >= 50) {
+    "P"
+  }else {
+    "F"
+  }
+}
+```
+- 코틀린에서는 if문 전체를 리턴할 수 있다.
+- IF-ELSE가 Expression이기 때문에(3항 연산자 같은 느낌)
+- 따라서, 코틀린에서는 3항연산자가 존재하지 않는다.
+
+```kotlin
+
+fun getGrade(score: Int) String{
+  return if (score >= 90) {
+      "A"
+  }else if (score >= 80) {
+      "B"
+  }else if (score >= 70) {
+      "C"
+  }else{
+      "D"
+  }
+}
+```
+###Tip!!
+- 어떤 값이 특정 법위에 포함되어 있는지, 포함되어 있지 않은지
+```java
+if(0 <= score && score <= 100)
+```
+
+```kotlin
+// score가 1~100사이 범위에 있지 않은 경우
+if( score !in 1..100 ){
+  throw IllegalArgumentException("${score}는 0부터 100사이의 값이 아닙니다.")
+}
+```
+
+### switch와 when
+
+```text
+when(값){
+    조건부 -> 어떠한 구문
+    조건부 -> 어떠한 구문
+    else-> 어떠한 구문
+}
+
+```
+```kotlin
+fun getGradeWithSwitch(score: Int): String{
+  return when (score / 10) {
+      in 90..99 -> "A"
+      in 80..89 -> "B"
+      in 70..79 -> "C"
+      else -> "D"
+  }
+}
+```
