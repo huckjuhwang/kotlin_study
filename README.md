@@ -436,8 +436,48 @@ when(값){
     조건부 -> 어떠한 구문
     else-> 어떠한 구문
 }
-
 ```
+- 조건부에는 어떠한, expression이라도 들어갈 수 있다. (EX. `is` Type)
+```java
+private boolean startsWithA(Object obj){
+  if(obj instanceof String){
+    return (String)obj.startsWith("A");
+  }else { 
+    return false;
+  }
+}
+```
+
+```kotlin
+fun startsWithA(obj: Any): Boolean {
+    return when(obj){
+        is String -> obj.startsWith("A")
+        else -> false
+    }
+}
+```
+
+- 여러개의 조건을 동일하게 검증할 수 있다.
+```kotlin
+fun judgeNumber(number: Int){
+  when (number) {
+    1, 0, -1 -> println("어디서 많이 본 숫자입니다.")
+    else -> println("1, 0, -1이 아닙니다.")
+  }
+}
+```
+
+```kotlin
+fun judgeNumber2(number: Int){
+  when {
+    number == 0 -> println("주어진 숫자는 0입니다")
+    number % 2 == 0 -> println("주어진 숫자는 짝수 입니다.")
+    else -> println("주어진 숫자는 홀수입니다.")
+  } 
+}
+```
+- when은 `enum Class` or `sealed class`와 함께 사용할 경우, 더욱더 진가를 발휘한다.
+
 ```kotlin
 fun getGradeWithSwitch(score: Int): String{
   return when (score / 10) {
@@ -448,3 +488,7 @@ fun getGradeWithSwitch(score: Int): String{
   }
 }
 ```
+
+## 정리
+- if / if-else / if-else if-else 모두 문법이 동일하다
+- 단, kotlin에서는 Expression으로 취급된다. ( 따라서, 삼항연산자가 존재하지 않는다 )
