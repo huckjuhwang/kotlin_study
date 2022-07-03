@@ -1074,7 +1074,8 @@ Derived Class
 
 ### 자바와 코틀린의 가시성 제어
 - public : 모든곳에서 접근가능
-- p
+
+![](C:\Users\sung8\OneDrive\바탕 화면\1233.jpg)
 - 코틀린에서는 패키지라는 개념을 접근제어에 사용하지 않는다.
 - Java의 기본 접근 지시어는 `default`, Kotlin은 `Public`
 ### 코틀린 파일의 접근 제어
