@@ -1070,14 +1070,164 @@ Derived Class
   
 
 
-## 접근제어
+## lec11. 접근제어
 
 ### 자바와 코틀린의 가시성 제어
-- public : 모든곳에서 접근가능
+![image](https://user-images.githubusercontent.com/47339929/177044501-1ce9d409-8130-40e0-9b99-0bbc6377c2fe.png)
 
-![](C:\Users\sung8\OneDrive\바탕 화면\1233.jpg)
 - 코틀린에서는 패키지라는 개념을 접근제어에 사용하지 않는다.
 - Java의 기본 접근 지시어는 `default`, Kotlin은 `Public`
+- 코틀린은 `.kt` 파일에 변수, 함수, 클래스 여러개를 만들 수 있다.
+
+
+#### 코틀린 파일의 접근제어
+- public -> 기본값 어디서든 접근할 수 있다.
+- protected -> 파일(최상단)에는 사용 불가능
+- internal -> 같은 모듈에서만 접근 가능
+- private -> 같은 파일 내에서만 접근 가능
+
+
+- 생성자에 접근 지시어를 붙이려면, `constructor`를 써야한다.
+- 
+
 ### 코틀린 파일의 접근 제어
 ### 다양한 구성요소의 접근 제어
 ### Java와 Kotlin을 함께 사용할 경우 주의할 점
+
+
+## lec 12. object 키워드
+
+### static 함수와 변수
+```java
+public class JavaPerson{
+    private static final int MIN_AGE = 1;
+
+    public static JavaPerson newBaby(String name) {
+        return new JavaPerson(name, MIN_AGE);
+    }
+
+    private final String name;
+    private int age;
+
+    public JavaPerson(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+```
+
+```kotlin
+class Person private constructor(
+    var name: String,
+    var age: Int
+) {
+
+    companion object {
+        private const val MIN_AGE = 1
+        fun newBaby(name: String): Person {
+            return Person(name, MIN_AGE)
+        }
+    }
+}
+```
+- Kotlin에서는 static대신 `companion object`를 사용한다
+- static: 클래스가 인스턴스와 될때, 새로운 값이 복제되는게 아니라 정적으로 인스턴스끼리의 값을 고융
+- companion object: 클래스와 동행하는 유일한 오브젝트
+
+```kotlin
+class Person private constructor(
+  var name: String,
+  var age: Int
+) {
+
+  // name : factory
+  companion object Factory : Log {
+    private const val MIN_AGE = 1
+    fun newBaby(name: String): Person {
+      return Person(name, MIN_AGE)
+    }
+
+    override fun log() {
+      println("나는 person 클래스의 동행객체이다.")
+    }
+  }
+}
+
+interface Log {
+  fun log()
+}
+```
+- companion object는 하나의 객체로 간주된다. 때문에, 이름을 붙일 수도 있고, interface를 구현할 수도 있다.
+- companion object의 유틸성 함수들을 넣어도 되지만, 최상단 파일을 활용하는것을 추천!
+
+
+### 싱글톤
+```java
+public class JavaSingleton {
+
+  private static final JavaSingleton INSTANCE = new JavaSingleton();
+
+  private JavaSingleton() {}
+
+  public static JavaSingleton getInstance() {
+    return INSTANCE;
+  }
+}
+
+```
+```kotlin
+fun main() {
+  println(Singleton.a)    // 0
+  Singleton.a += 10
+  println(Singleton.a)    // 10
+}
+
+object Singleton{
+  var a: Int= 0
+}
+```
+
+
+### 익명 클래스
+- 특정 인터페이스나 클래스를 상속받은 구현체를 일회성으로 사용할 때 쓰는 클래스
+
+```java
+public interface Movable{
+    void move();
+    
+    void fly();
+}
+```
+
+
+```kotlin
+fun main() {
+  moveSomething(object : Movable {
+    override fun move(){
+        println("무브 무브!")
+    }
+
+    override fun fly(){
+        println("난다난다.")
+    }
+  })
+}
+
+private fun moveSomething(movable: Movable){
+  movable.move()
+  movable.fly()
+}
+```
+
+
+### 정리
+- Java의 `static` 변수와 함수를 만드려면, Kotlin에서는 `companion object`를 사용해야한다.
+- `companion object`도 하나의 객체로 간주되기 때문에 이름을 붙일 수 있고, 다른 타입을 상속받을 수 도있다.
+- 싱글톤 클래스를 만들 때 `object` 키워드를 사용한다.
+- 익명 클래스를 만들 때, `object : 타입`을 사용한다.
+
+
+
+## 중첩 클래스
+### 중첩 클래스의 종류
+### 코틀린의 중첩 클래스와 내부 클래스
