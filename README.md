@@ -4,7 +4,7 @@
 // ex) [목차텍스트](#링크가 걸리는 텍스트)
 
 ## 목차
-- #### [1장. var vs val](/src/lec01_var_vs_val)
+- #### [1장. var vs val](/src/lec01_var_vs_val.md)
 - #### [2장. ](#lec02.)
 - #### [var vs val](#lec01.-var-vs-val)
 - #### [var vs val](#lec01.-var-vs-val)
