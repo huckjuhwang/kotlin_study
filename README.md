@@ -3,11 +3,11 @@
 
 // ex) [목차텍스트](#링크가 걸리는 텍스트)
 
-## 목차 
-1. [var vs val](#lec01.-var-vs-val)
-2. [var vs val](#lec02.)
-3. [var vs val](#lec01.-var-vs-val)
-4. [var vs val](#lec01.-var-vs-val)
+## 목차
+- #### [1장. var vs val](/src/lec01_var_vs_val)
+- #### [2장. ](#lec02.)
+- #### [var vs val](#lec01.-var-vs-val)
+- #### [var vs val](#lec01.-var-vs-val)
 
 
 
